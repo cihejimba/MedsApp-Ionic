@@ -1,62 +1,9 @@
-<ion-view title="Treatments">
-    <ion-tabs class="tabs-stable tabs-icon-top">
-        <ion-tab title="Today" icon="ion-clock">
-            <ion-content padding="true" class="has-header">
-            </ion-content>
-        </ion-tab>
-        <ion-tab title="Treatments" icon="ion-home">
-            <ion-content padding="true" class="has-header">
-            </ion-content>
-        </ion-tab>
-        <ion-tab title="New" icon="ion-heart">
-            <ion-content padding="true" class="has-header">
-                <form>
-                    <div class="spacer" style="width: 300px; height: 50px;"></div>
-                    <div class="list">
-                        <a class="item item-icon-left" href="#">
-                            <i class="icon ion-thermometer"></i>
-                            Treatment Info
-                        </a>
-                        <label class="item item-input" name="treatment_start">
-                            <span class="input-label">Start Date</span>
-                            <input type="date" placeholder="">
-                        </label>
-                        <label class="item item-input" name="treatment_end">
-                            <span class="input-label">End Date</span>
-                            <input type="date" placeholder="">
-                        </label>
-                        <label class="item item-input" name="treatment_description">
-                            <span class="input-label">Description</span><textarea placeholder=""> </textarea>
-                        </label>
-                        <a class="item item-icon-left" href="#">
-                            <i class="icon ion-beaker"></i>
-                            Medicine Info
-                        </a>
-                        <label class="item item-input" name="medicine_name">
-                            <span class="input-label">Name</span>
-                            <input type="text" placeholder="Medicine Name">
-                        </label>
-                        <label class="item item-select" name="administration_route">
-                            <span class="input-label">Administration Route</span>
-                            <select></select>
-                        </label>
-                        <label class="item item-input" name="medicine_quantity">
-                            <span class="input-label">Quantity</span>
-                            <input type="number" placeholder="...">
-                        </label>
-                        <label class="item item-input" name="medicine_frequency">
-                            <span class="input-label">Every (hours)</span>
-                            <input type="text" placeholder="...">
-                        </label>
-                        <label class="item item-input" name="medicine_expiration">
-                            <span class="input-label">Expiration Date</span>
-                            <input type="date" placeholder="">
-                        </label>
-                    </div>
-                    <button class="button button-stable button-block">Add Treatment</button>
+<ion-view title="Treatments List">
+    <ion-content padding="true" scroll="true" class="has-header">
+    <div class="button-bar">
+      <a class="button button-full">Remove</a>
+      <a href="#/new_treatment" class="button button-full">Add New</a>
+    </div>
 
-                </form>
-            </ion-content>
-        </ion-tab>
-    </ion-tabs>
+    </ion-content>
 </ion-view>

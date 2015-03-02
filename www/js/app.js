@@ -29,8 +29,8 @@ angular.module('app', ['ionic', 'starter.controllers'])
     // Each state's controller can be found in controllers.js
     $stateProvider
 
-    .state('menu', {
-        url: "/menu",
+    .state('app', {
+        url: "/app",
         abstract: true,
         templateUrl: "templates/menu.html",
         controller: 'AppCtrl'
@@ -54,6 +54,11 @@ angular.module('app', ['ionic', 'starter.controllers'])
     .state('treatments', {
         url: '/treatments',
         templateUrl: 'templates/treatments.html'
+    })
+
+    .state('new_treatment', {
+        url: '/new_treatment',
+        templateUrl: 'templates/create_treatment.html'
     })
 
     .state('treatment', {
