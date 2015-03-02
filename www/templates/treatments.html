@@ -5,17 +5,14 @@
             Back
         </ion-nav-back-button>
         <ion-nav-buttons side="right">
-            <a href="#/new_treatment" class="button-icon icon ion-plus"></a>
+            <a href="#/new_treatment" class="button-icon icon ion-plus-round"></a>
         </ion-nav-buttons>
     </ion-nav-bar>
 
     <ion-content padding="true" scroll="true" class="has-header">
-    <div class="button-bar">
-        <a class="button button-full">Remove</a>
-        <a href="#/new_treatment" class="button button-full">Add New</a>
-    </div>
         <ion-list class="list">
             <ion-item ng-repeat="item in user.treatments">
+
             <div class="item">
                 <h2>
                     <i class="icon ion-beaker"></i>
