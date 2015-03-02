@@ -1,5 +1,5 @@
 angular.module('starter.services', ['ngResource'])
 
 .factory('Session', function($resource){
-	return $resource('http://127.0.0.1:port/api/v1/users/:sessionId', {port:':3000'});
+	return $resource('http://localhost:port/api/v1/users/:sessionId', {port:':3000'});
 });

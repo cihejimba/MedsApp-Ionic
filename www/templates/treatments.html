@@ -1,25 +1,33 @@
 <ion-view title="Treatments List">
     <ion-content padding="true" scroll="true" class="has-header">
     <div class="button-bar">
-      <a class="button button-full">Remove</a>
-      <a href="#/new_treatment" class="button button-full">Add New</a>
+        <a class="button button-full">Remove</a>
+        <a href="#/new_treatment" class="button button-full">Add New</a>
     </div>
-
-    <ion-list class="list card">
-        <ion-item ng-repeat="item in user.treatments">
-            <div class="card">
-              <div class="item item-divider item-icon-left">
-                <i class="icon ion-beaker"></i>
-                Description
-              </div>
-              <div class="item item-text-wrap">
-                {{item.description}}
-                <span class="item">Starts: {{item.start_date | amDateFormat:'dddd, MMMM Do YY'}}</span>
-                <span class="item">Ends: {{item.end_date | amDateFormat:'dddd, MMMM Do YY'}}</span>
-              </div>
+        <ion-list class="list">
+            <ion-item ng-repeat="item in user.treatments">
+            <div class="item">
+                <h2>
+                    <i class="icon ion-beaker"></i>
+                    Description:
+                </h2>
+                <textarea name="treatment_description">{{item.description}}</textarea>
+                </br>
+                <ul class="list">
+                    <li>
+                        <label class="">
+                            Starts: {{item.start_date | amDateFormat:'dddd, MMMM Do YY'}}
+                        </label>
+                    </li>
+                    <li>
+                        <label class="">
+                            Ends: {{item.end_date | amDateFormat:'dddd, MMMM Do YY'}}
+                        </label>
+                    </li>
+                </ul>
             </div>
-        </ion-item>
-    </ion-list>
-
+            <h5 style="position: absolute; right: 5px; top: 5px;" align="right">{{$index + 1}}</h5>
+            </ion-item>
+        </ion-list>
     </ion-content>
 </ion-view>
