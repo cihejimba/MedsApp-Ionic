@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'starter.controllers'])
+angular.module('app', ['ionic', 'starter.controllers', 'angularMoment'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -53,7 +53,8 @@ angular.module('app', ['ionic', 'starter.controllers'])
 
     .state('treatments', {
         url: '/treatments',
-        templateUrl: 'templates/treatments.html'
+        templateUrl: 'templates/treatments.html',
+        controller: 'treatmentsCtrl'
     })
 
     .state('new_treatment', {
@@ -68,4 +69,15 @@ angular.module('app', ['ionic', 'starter.controllers'])
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/home');
+})
+
+.controller('LoadingCtrl', function($scope, $ionicLoading) {
+  $scope.show = function() {
+    $ionicLoading.show({
+      template: 'Loading...'
+    });
+  };
+  $scope.hide = function(){
+    $ionicLoading.hide();
+  };
 });

@@ -5,5 +5,21 @@
       <a href="#/new_treatment" class="button button-full">Add New</a>
     </div>
 
+    <ion-list class="list card">
+        <ion-item ng-repeat="item in user.treatments">
+            <div class="card">
+              <div class="item item-divider item-icon-left">
+                <i class="icon ion-beaker"></i>
+                Description
+              </div>
+              <div class="item item-text-wrap">
+                {{item.description}}
+                <span class="item">Starts: {{item.start_date | amDateFormat:'dddd, MMMM Do YY'}}</span>
+                <span class="item">Ends: {{item.end_date | amDateFormat:'dddd, MMMM Do YY'}}</span>
+              </div>
+            </div>
+        </ion-item>
+    </ion-list>
+
     </ion-content>
 </ion-view>
