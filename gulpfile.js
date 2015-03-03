@@ -48,3 +48,44 @@ gulp.task('git-check', function(done) {
   }
   done();
 });
+
+var cordovaPlugins = [
+  'org.apache.cordova.device',
+  'org.apache.cordova.console',
+  'org.apache.cordova.splashscreen',
+  'com.ionic.keyboard',
+];
+// can define this in some config file
+/*
+var config = require('ionic.config');
+var .cordovaPlugins = config.cordovaPlugins
+*/
+
+gulp.task('installCordovaPlugins', function() {
+  var d = Q.defer();
+  // execute ionic plugin add for each of the plugins
+  var addPromises = cordovaPlugins.map(function(plugin) {
+    return exec('ionic plugin add '+plugin);
+  });
+  // wait for all shell actions to complete
+  Q.all(addPromises).then(function() {
+    d.resolve();
+  });
+  return d.promise;
+});
+
+gulp.task('uninstallCordovaPlugins', function() {
+  var d = Q.defer();
+  // fetch list of all installed plugins
+  var installedPlugins = require('./plugins/android.json').installed_plugins;
+  // execute ionic plugin rm for each installed plugin
+  var rmPromises = [];
+  for(var plugin in installedPlugins) {
+    rmPromises.push(exec('ionic plugin rm '+plugin));
+  };
+  // wait for all shell actions to complete
+  Q.all(rmPromises).then(function() {
+    d.resolve();
+  });
+  return d.promise;
+});

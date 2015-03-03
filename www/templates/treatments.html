@@ -1,40 +1,33 @@
 <ion-view title="Treatments List">
-
     <ion-nav-bar class="bar bar-header"align-title="center">
         <ion-nav-back-button class="button-icon icon ion-android-arrow-back">
             Back
         </ion-nav-back-button>
         <ion-nav-buttons side="right">
-            <a href="#/new_treatment" class="button-icon icon ion-plus-round"></a>
+            <a href="#/new_treatment" class="button button-icon icon ion-plus-round"></a>
         </ion-nav-buttons>
     </ion-nav-bar>
+    <ion-content padding="false" scroll="true" class="has-header">
+        <div class="card" ng-repeat="item in user.treatments">
 
-    <ion-content padding="true" scroll="true" class="has-header">
-        <ion-list class="list">
-            <ion-item ng-repeat="item in user.treatments">
+          <div class="item item-avatar-left item-icon-right">
+            <img ng-src="{{item.doses[0].medicine.url_photo}}">
+            <h2>{{item.doses[0].medicine.name}}</h2>
+            <p>{{item.doses[0].medicine.company_name}}</p>
+            <a href="" class="button button-icon icon ion-more" ng-click="popover.show($event)"></a>
+          </div>
 
-            <div class="item">
-                <h2>
-                    <i class="icon ion-beaker"></i>
-                    Description:
-                </h2>
-                <textarea name="treatment_description">{{item.description}}</textarea>
-                </br>
-                <ul class="list">
-                    <li>
-                        <label class="">
-                            Starts: {{item.start_date | amDateFormat:'dddd, MMMM Do YY'}}
-                        </label>
-                    </li>
-                    <li>
-                        <label class="">
-                            Ends: {{item.end_date | amDateFormat:'dddd, MMMM Do YY'}}
-                        </label>
-                    </li>
-                </ul>
-            </div>
-            <h5 style="position: absolute; right: 5px; top: 5px;" align="right">{{$index + 1}}</h5>
-            </ion-item>
-        </ion-list>
+          <div class="item item-text-wrap">
+            {{item.description}}
+          </div>
+
+          <div class="item item-divider">
+              <div class="button-bar">
+                <a class="button button-small button-clear button-dark">Starts: {{item.start_date | amDateFormat:'MMMM Do YY'}}</a>
+                <a class="button button-small button-clear button-dark">Ends: {{item.end_date | amDateFormat:'MMMM Do YY'}} </a> 
+              </div>
+          </div>
+
+        </div>   
     </ion-content>
 </ion-view>
