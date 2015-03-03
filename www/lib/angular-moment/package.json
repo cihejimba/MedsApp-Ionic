@@ -36,7 +36,7 @@
   "homepage": "https://github.com/urish/angular-moment",
   "_id": "angular-moment@0.9.0",
   "_shasum": "12c0bb767779844375b4523640f167dbb603a1e1",
-  "_from": "angular-moment@",
+  "_from": "angular-moment@^0.9.0",
   "_npmVersion": "1.4.28",
   "_npmUser": {
     "name": "urish",

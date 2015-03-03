@@ -34,5 +34,5 @@ angular.module('starter.controllers', ['starter.services'])
 })
 
 .controller('treatmentsCtrl', function($scope, Session) {
-    $scope.user = Session.get({sessionId: 18});
+    $scope.user = Session.get({sessionId: 1});
 });
