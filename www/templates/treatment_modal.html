@@ -1,0 +1,31 @@
+<ion-modal-view>
+
+  <ion-header-bar>
+    <h1 class="title">{{treatment.doses[0].medicine.name}}</h1>
+    <div class="buttons">
+      <button class="button-icon icon ion-checkmark" ng-click="closeTreatmentModal()"></button>
+    </div>
+  </ion-header-bar>
+
+  <ion-content padding="true" class="has-header">
+
+	<div class="card">
+
+      <div class="item item-text-wrap">
+        <textarea name="">
+        	{{treatment.description}}
+        </textarea>
+      </div>
+
+      <div class="item item-divider">
+          <div class="button-bar">
+            <a class="button button-small button-clear button-dark">Starts: {{treatment.start_date | amDateFormat:'MMMM Do YY'}}</a>
+            <a class="button button-small button-clear button-dark">Ends: {{treatment.end_date | amDateFormat:'MMMM Do YY'}} </a> 
+          </div>
+      </div>
+
+    </div> 
+
+  </ion-content>
+
+</ion-modal-view>

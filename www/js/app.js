@@ -56,10 +56,10 @@ angular.module('app', ['ionic', 'starter.controllers', 'angularMoment'])
         templateUrl: 'templates/create_treatment.html'
     })
 
-    .state('treatment', {
-        url: '/treatment',
-        templateUrl: 'templates/treatment.html'
-    });
+    // .state('treatment', {
+    //     url: '/treatment',
+    //     templateUrl: 'templates/treatment.html'
+    // });
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/home');
