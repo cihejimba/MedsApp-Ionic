@@ -1,6 +1,6 @@
 <ion-view title="Treatments List">
 
-    <ion-nav-bar class="bar bar-header" align-title="center">
+    <ion-nav-bar class="bar bar-header bar-positive" align-title="center">
         <ion-nav-back-button class="button-icon icon ion-android-arrow-back">
             Back
         </ion-nav-back-button>
@@ -15,11 +15,11 @@
           <div class="item item-avatar-left item-icon-right">
             <img ng-src="{{item.doses[0].medicine.url_photo}}">
             <h2>{{item.doses[0].medicine.name}}</h2>
-            <p>{{item.doses[0].medicine.company_name}}</p>
+            <p>{{item.doses[0].quantity + " " + item.doses[0].measurement_unit}}</p>
             <a href="" class="button button-icon icon ion-more" ng-click="openPopoverTreatmentMore($event, {{item}})"></a>
           </div>
 
-          <div class="item item-text-wrap">
+          <div class="item">
             <p style="">{{item.description}}</p>
           </div>
 

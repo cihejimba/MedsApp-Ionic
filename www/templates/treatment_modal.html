@@ -1,7 +1,7 @@
 <ion-modal-view>
 
-  <ion-header-bar>
-    <h1 class="title">{{treatment.doses[0].medicine.name}}</h1>
+  <ion-header-bar class="bar bar-header bar-positive">
+    <h1 class="title">Treatment Details</h1>
     <div class="buttons">
       <button class="button-icon icon ion-checkmark" ng-click="closeTreatmentModal()"></button>
     </div>
@@ -9,22 +9,65 @@
 
   <ion-content padding="true" class="has-header">
 
-	<div class="card">
+
+    <div class="list card">
+
+      <div class="item item-divider item-icon-left">
+        <i class="icon ion-thermometer positive"></i>
+        <h2>{{treatment.doses[0].medicine.name}}</h2>
+        <p>Every {{((treatment.frequencies[0].period_of_time / treatment.frequencies[0].occurrences) / 60).toFixed(2)}} hours</p>
+      </div>
 
       <div class="item item-text-wrap">
-        <textarea name="">
-        	{{treatment.description}}
-        </textarea>
+        <p>
+          {{treatment.description}}
+        </p>
       </div>
 
-      <div class="item item-divider">
-          <div class="button-bar">
-            <a class="button button-small button-clear button-dark">Starts: {{treatment.start_date | amDateFormat:'MMMM Do YY'}}</a>
-            <a class="button button-small button-clear button-dark">Ends: {{treatment.end_date | amDateFormat:'MMMM Do YY'}} </a> 
-          </div>
+      <div class="item item-icon-left item-divider">
+        <i class="icon ion-waterdrop"></i>
+        <h2>Dosage:</h2>
+        <p>{{treatment.doses[0].quantity + " " + treatment.doses[0].measurement_unit}}</p>
       </div>
 
-    </div> 
+      <div class="item item-icon-left item-divider">
+        <i class="icon ion-clock"></i>
+        <h2>Start Date:</h2>
+        <p>{{treatment.start_date | amDateFormat:'ddd, MMMM Do YYYY, h:mm:ss a'}}</p>
+      </div>
+
+      <div class="item item-icon-left item-divider">
+        <i class="icon ion-clock"></i>
+        <h2>End Date:</h2>
+        <p>{{treatment.end_date | amDateFormat:'ddd, MMMM Do YYYY, h:mm:ss a'}}</p>
+      </div>
+      
+    </div>
+
+    <div class="card">
+
+        <div class="item item-divider item-icon-left">
+          <i class="icon ion-beaker positive"></i>
+          <h2>Medicine Info</h2>
+          <p>Name: {{treatment.doses[0].medicine.name}}</p>
+          <p>Company: {{treatment.doses[0].medicine.company_name}}</p>
+        </div>
+
+        <div class="item item-body item-text-wrap">
+          <img class="full-image" ng-src="{{treatment.doses[0].medicine.url_photo}}">
+          <p>
+            {{treatment.doses[0].medicine.description}}
+          </p>
+        </div>
+
+        <div class="item item-divider item-icon-left">
+          <i class="icon ion-clock assertive"></i>
+          <h2>Expiration Date:</h2>
+          <p>{{treatment.doses[0].medicine.expiration_date | amDateFormat:'ddd, MMMM Do YYYY'}}</p>
+        </div>
+
+      </div>
+
 
   </ion-content>
 

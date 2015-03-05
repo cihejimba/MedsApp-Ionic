@@ -25,10 +25,15 @@
                     <span class="input-label">Name</span>
                     <input type="text" placeholder="Medicine Name">
                 </label>
-                <label class="item item-select" name="administration_route">
-                    <span class="input-label">Administration Route</span>
-                <select></select>
-            </label>
+                <label class="item item-input item-select" name="administration_route">
+                    <div class="input-label">Route of Administration</div>
+                    <select name="medicine_administration_route">
+                        <option selected value="oral">Oral</option>
+                        <option value="topical">Topical</option>
+                        <option value="inhalation">Inhalation</option>
+                        <option value="injection">Injection</option>
+                    </select>
+                </label>
             <label class="item item-input" name="medicine_quantity">
                 <span class="input-label">Quantity</span>
                 <input type="number" placeholder="...">
