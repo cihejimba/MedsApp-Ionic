@@ -5,7 +5,7 @@ angular.module('starter.services', ['ngResource'])
         'get': {
             method: 'GET',
             headers: {
-                token: '@token'
+                token: ''
             }
         },
         'save': {
@@ -15,12 +15,12 @@ angular.module('starter.services', ['ngResource'])
                 password: '@password'
             },
             headers: {
-                token: '@token'
+                token: ''
             }
         },
         'login': {
-        	url: 'http://localhost:3000/api/v1/users/login',
-            method: 'POST',
+            url: 'http://localhost:3000/api/v1/login',
+            method: 'GET',
             params: {
                 email: '@email',
                 password: '@password'
@@ -34,7 +34,7 @@ angular.module('starter.services', ['ngResource'])
         'get': {
             method: 'GET',
             headers: {
-                token: '@token'
+                token: ''
             }
         },
         'save': {
@@ -53,7 +53,7 @@ angular.module('starter.services', ['ngResource'])
         'get': {
             method: 'GET',
             headers: {
-                token: '@token'
+                token: ''
             }
         },
         'save': {
@@ -71,7 +71,7 @@ angular.module('starter.services', ['ngResource'])
         'get': {
             method: 'GET',
             headers: {
-                token: '@token'
+                token: ''
             }
         },
         'save': {
@@ -89,7 +89,7 @@ angular.module('starter.services', ['ngResource'])
         'get': {
             method: 'GET',
             headers: {
-                token: '@token'
+                token: ''
             }
         },
         'save': {
@@ -112,7 +112,7 @@ angular.module('starter.services', ['ngResource'])
         'get': {
             method: 'GET',
             headers: {
-                token: '@token'
+                token: ''
             }
         },
         'save': {
@@ -124,4 +124,46 @@ angular.module('starter.services', ['ngResource'])
             }
         }
     });
-});
+})
+
+.factory('RequestService', function RequestService() {
+    var token = null;
+
+    var setToken = function setToken(someToken) {
+        token = someToken;
+    }
+
+    var getToken = function getToken() {
+        return token;
+    }
+
+    var request = function request(config) {
+        if (token) {
+            // jqXHR.setRequestHeader('Authorization','Token token="' + app.user.api_key.access_token + '"');
+            config.headers['Token'] = token;
+        }
+        return config;
+    }
+
+    return {
+        setToken: setToken,
+        getToken: getToken,
+        request: request
+    }
+})
+
+.config(['$httpProvider',
+    function($httpProvider) {
+        $httpProvider.interceptors.push('RequestService');
+    }
+]);
+
+// $httpProvider.interceptors.push(function($q, $cookies, $scope) {
+//     return {
+//      'request': function(config) {
+
+//           config.headers['token'] = $scope.api_key/* || $cookies.loginTokenCookie*/;
+//           return config;
+//       }
+//     };
+//   });

@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['starter.services'])
 
-.controller('treatmentsCtrl', function($scope, $ionicLoading, $ionicPopover, $ionicModal, User) {
+.controller('treatmentsCtrl', function($scope, $ionicLoading, $ionicPopover, $ionicModal, $http, User, RequestService) {
 
     // Popover from treatments template control and configuration
     $ionicPopover.fromTemplateUrl('templates/treatment_more_popover.html', {
@@ -47,8 +47,8 @@ angular.module('starter.controllers', ['starter.services'])
     });
 
     $scope.user = User.get({
-        user_id: 1
-    })
+        user_id: 1,
+    });
 
     $scope.user.$promise.then(function(result) {
         $scope.user = result;
@@ -92,25 +92,30 @@ angular.module('starter.controllers', ['starter.services'])
 
 })
 
-.controller('loginCtrl', function($scope, $state, User) {
+.controller('loginCtrl', function($scope, $state, User, RequestService) {
 
     $scope.user = {
         email: '',
-        password: ''
+        password: '',
     };
 
     $scope.signIn = function(form) {
 
         if (form.$valid) {
-            // do something
-            var log_user = User.login({
+
+            $scope.logged_user = User.login({
                 email: $scope.user.email,
                 password: $scope.user.password
             });
-            
-            $scope.api_key = log_user.api_key;
 
-            $state.go('treatments')
+            $scope.logged_user.$promise.then(function(result) {
+                $scope.logged_user = result;
+                // console.log($scope.logged_user);
+                // console.log($scope.logged_user.api_key);
+                RequestService.setToken($scope.logged_user.api_key);
+            });
+
+            $state.go('treatments');
         }
 
     }
