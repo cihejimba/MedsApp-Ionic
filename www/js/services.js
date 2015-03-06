@@ -126,37 +126,74 @@ angular.module('starter.services', ['ngResource'])
     });
 })
 
-.factory('RequestService', function RequestService() {
-    var token = null;
+.factory('TokenHandler', function() {
+    var tokenHandler = {};
+    var token = "none";
 
-    var setToken = function setToken(someToken) {
-        token = someToken;
-    }
+    tokenHandler.set = function(newToken) {
+        token = newToken;
+    };
 
-    var getToken = function getToken() {
+    tokenHandler.get = function() {
         return token;
-    }
+    };
 
-    var request = function request(config) {
-        if (token) {
-            // jqXHR.setRequestHeader('Authorization','Token token="' + app.user.api_key.access_token + '"');
-            config.headers['Token'] = token;
-        }
-        return config;
-    }
+    // wraps given actions of a resource to send auth token
+    // with every request
+    tokenHandler.wrapActions = function(resource, actions) {
+        // copy original resource
+        var wrappedResource = resource;
+        // loop through actions and actually wrap them
+        for (var i = 0; i < actions.length; i++) {
+            tokenWrapper(wrappedResource, actions[i]);
+        };
+        // return modified copy of resource
+        return wrappedResource;
+    };
 
-    return {
-        setToken: setToken,
-        getToken: getToken,
-        request: request
-    }
+    // wraps resource action to send request with auth token
+    var tokenWrapper = function(resource, action) {
+        // copy original action
+        resource['_' + action] = resource[action];
+        // create new action wrapping the original
+        // and sending token
+        resource[action] = function(data, success, error) {
+            return resource['_' + action](
+                // call action with provided data and
+                // appended access_token
+                angular.extend({}, data || {}, {
+                    access_token: tokenHandler.get()
+                }),
+                success,
+                error
+            );
+        };
+    };
+
+    return tokenHandler;
 })
 
-.config(['$httpProvider',
-    function($httpProvider) {
-        $httpProvider.interceptors.push('RequestService');
-    }
-]);
+.factory('authInterceptor', function($rootScope, $q, $window) {
+    return {
+        request: function(config) {
+            config.headers = config.headers || {};
+            if ($window.localStorage['ApiToken']) {
+                config.headers.Authorization = 'Token token=' + $window.localStorage['ApiToken'];
+            }
+            return config;
+        },
+        responseError: function(rejection) {
+            if (rejection.status === 401) {
+                // handle the case where the user is not authenticated
+            }
+            return $q.reject(rejection);
+        }
+    };
+})
+
+.config(function($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptor');
+});
 
 // $httpProvider.interceptors.push(function($q, $cookies, $scope) {
 //     return {

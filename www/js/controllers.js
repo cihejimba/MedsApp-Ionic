@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['starter.services'])
 
-.controller('treatmentsCtrl', function($scope, $ionicLoading, $ionicPopover, $ionicModal, $http, User, RequestService) {
+.controller('treatmentsCtrl', function($scope, $ionicLoading, $ionicPopover, $ionicModal, $http, User) {
 
     // Popover from treatments template control and configuration
     $ionicPopover.fromTemplateUrl('templates/treatment_more_popover.html', {
@@ -92,7 +92,7 @@ angular.module('starter.controllers', ['starter.services'])
 
 })
 
-.controller('loginCtrl', function($scope, $state, User, RequestService) {
+.controller('loginCtrl', function($scope, $state, $window, User) {
 
     $scope.user = {
         email: '',
@@ -112,7 +112,8 @@ angular.module('starter.controllers', ['starter.services'])
                 $scope.logged_user = result;
                 // console.log($scope.logged_user);
                 // console.log($scope.logged_user.api_key);
-                RequestService.setToken($scope.logged_user.api_key);
+                // save api token locally
+                $window.localStorage['ApiToken'] = $scope.logged_user.api_key;
             });
 
             $state.go('treatments');
