@@ -1,13 +1,19 @@
 <ion-view title="Recover Password">
     <ion-content padding="true" scroll="false" class="has-header">
-        <form>
+        <form name="recoverForm" novalidate="" ng-submit="recoverPass(recoverForm)">
             <div class="list">
-              <label class="item item-input item-stacked-label">
+
+              <label class="item item-input item-stacked-label" ng-class="{ 'has-error' : recoverForm.email.$invalid}">
                 <span class="input-label">Email</span>
-                <input name="user_email" type="email" placeholder="john@doe.com">
+                <input type="email" name="email" ng-model="recover.email" placeholder="Email" required>
               </label>
+
+              <div class="form-errors" ng-messages="recoverForm.email.$error" ng-messages-include="templates/form_errors.html"></div>
+
             </div>
-            <button class="button button-stable button-block">Recover Password</button>
+
+            <button class="button button-stable button-block" ng-click="recoverPass(recover)">Recover Password</button>
+
         </form>
     </ion-content>
 </ion-view>

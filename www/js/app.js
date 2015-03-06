@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'starter.controllers', 'angularMoment'])
+angular.module('app', ['ionic', 'angularMoment', 'ngMessages', 'starter.controllers'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -29,9 +29,10 @@ angular.module('app', ['ionic', 'starter.controllers', 'angularMoment'])
     // Each state's controller can be found in controllers.js
     $stateProvider
 
-    .state('home', {
-        url: "/home",
-        templateUrl: "templates/home.html"
+    .state('login', {
+        url: "/login",
+        templateUrl: "templates/login.html",
+        controller: 'loginCtrl'
     })
 
     .state('register', {
@@ -42,7 +43,8 @@ angular.module('app', ['ionic', 'starter.controllers', 'angularMoment'])
 
     .state('recover', {
         url: '/recover',
-        templateUrl: 'templates/recover.html'
+        templateUrl: 'templates/recover.html',
+        controller: 'recoverCtrl'
     })
 
     .state('treatments', {
@@ -62,5 +64,5 @@ angular.module('app', ['ionic', 'starter.controllers', 'angularMoment'])
     // });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise('/login');
 });

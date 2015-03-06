@@ -2,29 +2,36 @@
     <ion-content padding="true" class="has-header">
         <form>
             <div class="list">
+
                 <a class="button button-icon-left button-full button-clear button-dark">
                     <i class="icon ion-thermometer"></i>
                     Treatment Info
                 </a>
+
                 <label class="item item-input" name="treatment_start">
                     <span class="input-label">Start Date</span>
                     <input type="date" name="treatment_start_date">
                 </label>
+
                 <label class="item item-input" name="treatment_end">
                     <span class="input-label">End Date</span>
                     <input type="date" name="treatment_end_date">
                 </label>
+
                 <label class="item item-input" name="treatment_description">
                     <span class="input-label">Description</span><textarea placeholder=""> </textarea>
                 </label>
+
                 <a class="button button-icon-left button-full button-clear button-dark">
                     <i class="icon ion-beaker"></i>
                     Medicine Info
                 </a>
+
                 <label class="item item-input" name="medicine_name">
                     <span class="input-label">Name</span>
                     <input type="text" placeholder="Medicine Name">
                 </label>
+
                 <label class="item item-input item-select" name="administration_route">
                     <div class="input-label">Route of Administration</div>
                     <select name="medicine_administration_route">
@@ -34,18 +41,22 @@
                         <option value="injection">Injection</option>
                     </select>
                 </label>
+
             <label class="item item-input" name="medicine_quantity">
                 <span class="input-label">Quantity</span>
                 <input type="number" placeholder="...">
             </label>
+
             <label class="item item-input" name="medicine_frequency">
                 <span class="input-label">Every (hours)</span>
                 <input type="text" placeholder="...">
             </label>
+
             <label class="item item-input" name="medicine_expiration">
                 <span class="input-label">Expiration Date</span>
                 <input type="date" placeholder="">
             </label>
+            
         </div>
         <button class="button button-stable button-block">Add Treatment</button>
         </form>

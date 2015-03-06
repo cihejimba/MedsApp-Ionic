@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['starter.services'])
 
-.controller('treatmentsCtrl', function($scope, $ionicLoading, $ionicPopover, $ionicModal, Session) {
+.controller('treatmentsCtrl', function($scope, $ionicLoading, $ionicPopover, $ionicModal, User) {
 
     // Popover from treatments template control and configuration
     $ionicPopover.fromTemplateUrl('templates/treatment_more_popover.html', {
@@ -46,8 +46,8 @@ angular.module('starter.controllers', ['starter.services'])
         duration: 1000
     });
 
-    $scope.user = Session.get({
-        sessionId: 1
+    $scope.user = User.get({
+        user_id: 1
     })
 
     $scope.user.$promise.then(function(result) {
@@ -56,6 +56,62 @@ angular.module('starter.controllers', ['starter.services'])
     });
 })
 
-.controller('registerCtrl', function($scope) {
+.controller('registerCtrl', function($scope, User) {
 
+    $scope.user = {
+        email: '',
+        password: ''
+    };
+
+    $scope.signUp = function(form) {
+
+        if (form.$valid) {
+            // do something
+            var new_user = User.save({
+                email: $scope.user.email,
+                password: $scope.user.password
+            });
+            console.log(new_user);
+        }
+    }
+})
+
+.controller('recoverCtrl', function($scope, User) {
+
+    $scope.recover = {
+        email: ''
+    };
+
+    $scope.recoverPass = function(form) {
+
+        if (form.$valid) {
+            // do something
+
+        }
+    }
+
+})
+
+.controller('loginCtrl', function($scope, $state, User) {
+
+    $scope.user = {
+        email: '',
+        password: ''
+    };
+
+    $scope.signIn = function(form) {
+
+        if (form.$valid) {
+            // do something
+            var log_user = User.login({
+                email: $scope.user.email,
+                password: $scope.user.password
+            });
+            
+            $scope.api_key = log_user.api_key;
+
+            $state.go('treatments')
+        }
+
+    }
 });
