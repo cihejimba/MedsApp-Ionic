@@ -32,7 +32,15 @@ label.item.valid-lr {
 .form-errors {
   margin: 5px 0
 }
+
 .form-error {
   padding: 2px 0 2px 16px;
   color: red;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    vertical-align: middle;
+    width: 100%;
 }

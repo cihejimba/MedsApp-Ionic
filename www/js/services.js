@@ -2,20 +2,11 @@ angular.module('starter.services', ['ngResource'])
 
 .factory('User', function($resource) {
     return $resource('http://localhost:3000/api/v1/users/:user_id', {}, {
-        'get': {
-            method: 'GET',
-            headers: {
-                token: ''
-            }
-        },
         'save': {
             method: 'POST',
             params: {
                 email: '@email',
                 password: '@password'
-            },
-            headers: {
-                token: ''
             }
         },
         'login': {
@@ -31,12 +22,6 @@ angular.module('starter.services', ['ngResource'])
 
 .factory('Treatment', function($resource) {
     return $resource('http://localhost:3000/api/v1/users/:user_id/treatments/:treatment_id', {}, {
-        'get': {
-            method: 'GET',
-            headers: {
-                token: ''
-            }
-        },
         'save': {
             method: 'POST',
             params: {
@@ -50,12 +35,6 @@ angular.module('starter.services', ['ngResource'])
 
 .factory('Dose', function($resource) {
     return $resource('http://localhost:3000/api/v1/users/:user_id/treatments/:treatment_id/doses/:dose_id', {}, {
-        'get': {
-            method: 'GET',
-            headers: {
-                token: ''
-            }
-        },
         'save': {
             method: 'POST',
             params: {
@@ -68,12 +47,6 @@ angular.module('starter.services', ['ngResource'])
 
 .factory('Dose', function($resource) {
     return $resource('http://localhost:3000/api/v1/users/:user_id/treatments/:treatment_id/frequencies/:frequency_id', {}, {
-        'get': {
-            method: 'GET',
-            headers: {
-                token: ''
-            }
-        },
         'save': {
             method: 'POST',
             params: {
@@ -86,12 +59,6 @@ angular.module('starter.services', ['ngResource'])
 
 .factory('Medicine', function($resource) {
     return $resource('http://localhost:3000/api/v1/users/:user_id/treatments/:treatment_id/doses/:dose_id/medicines/:medicine_id', {}, {
-        'get': {
-            method: 'GET',
-            headers: {
-                token: ''
-            }
-        },
         'save': {
             method: 'POST',
             params: {
@@ -109,12 +76,6 @@ angular.module('starter.services', ['ngResource'])
 
 .factory('Medicine', function($resource) {
     return $resource('http://localhost:3000/api/v1/users/:user_id/treatments/:treatment_id/doses/:dose_id/medicines/:medicine_id/administration_routes/:administration_route_id', {}, {
-        'get': {
-            method: 'GET',
-            headers: {
-                token: ''
-            }
-        },
         'save': {
             method: 'POST',
             params: {
@@ -173,7 +134,7 @@ angular.module('starter.services', ['ngResource'])
     return tokenHandler;
 })
 
-.factory('authInterceptor', function($rootScope, $q, $window) {
+.factory('authInterceptor', function($q, $window) {
     return {
         request: function(config) {
             config.headers = config.headers || {};
@@ -194,13 +155,3 @@ angular.module('starter.services', ['ngResource'])
 .config(function($httpProvider) {
     $httpProvider.interceptors.push('authInterceptor');
 });
-
-// $httpProvider.interceptors.push(function($q, $cookies, $scope) {
-//     return {
-//      'request': function(config) {
-
-//           config.headers['token'] = $scope.api_key/* || $cookies.loginTokenCookie*/;
-//           return config;
-//       }
-//     };
-//   });
