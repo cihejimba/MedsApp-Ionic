@@ -26,7 +26,7 @@ angular.module('app', ['ionic', 'angularMoment', 'ngMessages', 'starter.controll
     });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $compileProvider) {
 
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router
@@ -71,4 +71,6 @@ angular.module('app', ['ionic', 'angularMoment', 'ngMessages', 'starter.controll
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/login');
+
+    $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
 });

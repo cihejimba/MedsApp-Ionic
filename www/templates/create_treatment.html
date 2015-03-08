@@ -37,6 +37,17 @@
 
             <div class="form-errors" ng-show="treatmentForm.medicine_name.$error && treatmentForm.$submitted" ng-messages="treatmentForm.medicine_name.$error" ng-messages-include="templates/form_errors.html"></div>
 
+            <label class='item item-input' ng-class="{ 'has-error-lr' : treatmentForm.company_name.$invalid, 'valid-lr' : treatmentForm.company_name.$valid}">
+                <span class='input-label'>Company Name</span>
+                <input type='text' name='company_name' placeholder='Company Name' ng-model="treatment.medicine.company_name">
+            </label>
+
+            <div class="form-errors" ng-show="treatmentForm.company_name.$error && treatmentForm.$submitted" ng-messages="treatmentForm.company_name.$error" ng-messages-include="templates/form_errors.html"></div>
+
+            <label class='item item-input' ng-class="{ 'has-error-lr' : treatmentForm.medicine_description.$invalid, 'valid-lr' : treatmentForm.medicine_description.$valid}">
+                <span class='input-label'>Description</span><textarea placeholder='' ng-model='treatment.medicine.description' name="medicine_description"></textarea>
+            </label>
+
             <label class='item item-input item-select' ng-class="{ 'has-error-lr' : treatmentForm.route_of_administration.$invalid, 'valid-lr' : treatmentForm.route_of_administration.$valid}">
                 <div class='input-label'>Route of Administration</div>
                 <select name='route_of_administration' ng-model='treatment.medicine.route_of_administration' required>
@@ -78,7 +89,7 @@
 
             <div class="form-errors" ng-show="treatmentForm.medicine_expiration.$error && treatmentForm.$submitted" ng-messages="treatmentForm.medicine_expiration.$error" ng-messages-include="templates/form_errors.html"></div>
 
-            <button ng-click="getPhoto()" class="button button-block button-primary">Take Photo</button>
+            <button ng-click="getPhoto()" class="button button-block button-primary icon-left ion-camera">Take Photo</button>
             <img ng-src="{{lastPhoto}}" style="max-width: 100%">
                 
             <button class='button button-stable button-block' ng-click="createTreatment(treatment)">Add Treatment</button>

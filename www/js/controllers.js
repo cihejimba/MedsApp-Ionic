@@ -35,6 +35,8 @@ angular.module('starter.controllers', ['starter.services'])
 
     $scope.treatment.medicine = {
         name: '',
+        company_name: '',
+        description: '',
         route_of_administration: 'oral',
         measurement_unit: 'mg',
         quantity: '',
@@ -42,10 +44,23 @@ angular.module('starter.controllers', ['starter.services'])
         expiration_date: ''
     };
 
+    var options = {
+        quality: 80,
+        targetWidth: 320,
+        targetHeight: 320,
+        // destinationType: Camera.DestinationType.DATA_URL,
+        // sourceType: Camera.PictureSourceType.CAMERA,
+        saveToPhotoAlbum: false
+    };
+
     $scope.getPhoto = function() {
-        Camera.getPicture().then(function(imageURI) {
-            console.log(imageURI);
+        console.log('Getting Camera');
+        Camera.getPicture(options).then(function(imageData) {
+            // picture taken successfully
+            console.log(imageData);
+            $scope.lastPhoto = "data:image/jpeg;base64," + imageData;
         }, function(err) {
+            // failure an error occurred taking the picture
             console.err(err);
         });
     };
@@ -79,7 +94,10 @@ angular.module('starter.controllers', ['starter.services'])
                         treatment_id: $scope.new_treatment.id,
                         dose_id: $scope.dose.id,
                         name: $scope.treatment.medicine.name,
-                        expiration_date: $scope.treatment.medicine.expiration_date
+                        company_name: $scope.treatment.medicine.company_name,
+                        description: $scope.treatment.medicine.description,
+                        expiration_date: $scope.treatment.medicine.expiration_date,
+                        url_photo: $scope.lastPhoto
                     });
 
                     $scope.medicine.$promise.then(function(result) {

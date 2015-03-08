@@ -1,7 +1,7 @@
 angular.module('starter.services', ['ngResource'])
 
 .factory('User', function($resource) {
-    return $resource('http://localhost:3000/api/v1/users/:user_id', {
+    return $resource('http://190.203.137.152:3000/api/v1/users/:user_id', {
         user_id: '@user_id',
     }, {
         'save': {
@@ -12,7 +12,7 @@ angular.module('starter.services', ['ngResource'])
             }
         },
         'login': {
-            url: 'http://localhost:3000/api/v1/login',
+            url: 'http://190.203.137.152:3000/api/v1/login',
             method: 'GET',
             params: {
                 email: '@email',
@@ -23,7 +23,7 @@ angular.module('starter.services', ['ngResource'])
 })
 
 .factory('Treatment', function($resource) {
-    return $resource('http://localhost:3000/api/v1/users/:user_id/treatments/:treatment_id', {
+    return $resource('http://190.203.137.152:3000/api/v1/users/:user_id/treatments/:treatment_id', {
         user_id: '@user_id',
         treatment_id: '@treatment_id'
     }, {
@@ -39,7 +39,7 @@ angular.module('starter.services', ['ngResource'])
 })
 
 .factory('Dose', function($resource) {
-    return $resource('http://localhost:3000/api/v1/users/:user_id/treatments/:treatment_id/doses/:dose_id', {
+    return $resource('http://190.203.137.152:3000/api/v1/users/:user_id/treatments/:treatment_id/doses/:dose_id', {
         user_id: '@user_id',
         treatment_id: '@treatment_id',
         dose_id: '@dose_id'
@@ -55,7 +55,7 @@ angular.module('starter.services', ['ngResource'])
 })
 
 .factory('Frequency', function($resource) {
-    return $resource('http://localhost:3000/api/v1/users/:user_id/treatments/:treatment_id/frequencies/:frequency_id', {
+    return $resource('http://190.203.137.152:3000/api/v1/users/:user_id/treatments/:treatment_id/frequencies/:frequency_id', {
         user_id: '@user_id',
         treatment_id: '@treatment_id',
         frequency_id: '@frequency_id'
@@ -71,7 +71,7 @@ angular.module('starter.services', ['ngResource'])
 })
 
 .factory('Medicine', function($resource) {
-    return $resource('http://localhost:3000/api/v1/users/:user_id/treatments/:treatment_id/doses/:dose_id/medicines/:medicine_id', {
+    return $resource('http://190.203.137.152:3000/api/v1/users/:user_id/treatments/:treatment_id/doses/:dose_id/medicines/:medicine_id', {
         user_id: '@user_id',
         treatment_id: '@treatment_id',
         dose_id: '@dose_id',
@@ -93,7 +93,7 @@ angular.module('starter.services', ['ngResource'])
 })
 
 .factory('AdministrationRoute', function($resource) {
-    return $resource('http://localhost:3000/api/v1/users/:user_id/treatments/:treatment_id/doses/:dose_id/medicines/:medicine_id/administration_routes/:administration_route_id', {
+    return $resource('http://190.203.137.152:3000/api/v1/users/:user_id/treatments/:treatment_id/doses/:dose_id/medicines/:medicine_id/administration_routes/:administration_route_id', {
         user_id: '@user_id',
         treatment_id: '@treatment_id',
         dose_id: '@dose_id',
