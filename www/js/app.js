@@ -1,5 +1,9 @@
 // Ionic Starter App
 
+// for ripple emulator dele this on deploy
+var annoyingDialog = parent.document.getElementById('exec-dialog');
+if ( annoyingDialog ) annoyingDialog.outerHTML = "";
+
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
@@ -56,8 +60,9 @@ angular.module('app', ['ionic', 'angularMoment', 'ngMessages', 'starter.controll
 
     .state('new_treatment', {
         url: '/new_treatment',
-        templateUrl: 'templates/create_treatment.html'
-    })
+        templateUrl: 'templates/create_treatment.html',
+        controller: 'newTreatmentCtrl'
+    });
 
     // .state('treatment', {
     //     url: '/treatment',

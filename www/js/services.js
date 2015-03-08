@@ -1,7 +1,9 @@
 angular.module('starter.services', ['ngResource'])
 
 .factory('User', function($resource) {
-    return $resource('http://localhost:3000/api/v1/users/:user_id', {}, {
+    return $resource('http://localhost:3000/api/v1/users/:user_id', {
+        user_id: '@user_id',
+    }, {
         'save': {
             method: 'POST',
             params: {
@@ -21,7 +23,10 @@ angular.module('starter.services', ['ngResource'])
 })
 
 .factory('Treatment', function($resource) {
-    return $resource('http://localhost:3000/api/v1/users/:user_id/treatments/:treatment_id', {}, {
+    return $resource('http://localhost:3000/api/v1/users/:user_id/treatments/:treatment_id', {
+        user_id: '@user_id',
+        treatment_id: '@treatment_id'
+    }, {
         'save': {
             method: 'POST',
             params: {
@@ -34,19 +39,27 @@ angular.module('starter.services', ['ngResource'])
 })
 
 .factory('Dose', function($resource) {
-    return $resource('http://localhost:3000/api/v1/users/:user_id/treatments/:treatment_id/doses/:dose_id', {}, {
+    return $resource('http://localhost:3000/api/v1/users/:user_id/treatments/:treatment_id/doses/:dose_id', {
+        user_id: '@user_id',
+        treatment_id: '@treatment_id',
+        dose_id: '@dose_id'
+    }, {
         'save': {
             method: 'POST',
             params: {
-                quantity: '@start_date',
-                measurement_unit: '@end_date'
+                quantity: '@quantity',
+                measurement_unit: '@measurement_unit'
             }
         }
     });
 })
 
-.factory('Dose', function($resource) {
-    return $resource('http://localhost:3000/api/v1/users/:user_id/treatments/:treatment_id/frequencies/:frequency_id', {}, {
+.factory('Frequency', function($resource) {
+    return $resource('http://localhost:3000/api/v1/users/:user_id/treatments/:treatment_id/frequencies/:frequency_id', {
+        user_id: '@user_id',
+        treatment_id: '@treatment_id',
+        frequency_id: '@frequency_id'
+    }, {
         'save': {
             method: 'POST',
             params: {
@@ -58,7 +71,12 @@ angular.module('starter.services', ['ngResource'])
 })
 
 .factory('Medicine', function($resource) {
-    return $resource('http://localhost:3000/api/v1/users/:user_id/treatments/:treatment_id/doses/:dose_id/medicines/:medicine_id', {}, {
+    return $resource('http://localhost:3000/api/v1/users/:user_id/treatments/:treatment_id/doses/:dose_id/medicines/:medicine_id', {
+        user_id: '@user_id',
+        treatment_id: '@treatment_id',
+        dose_id: '@dose_id',
+        medicine_id: '@medicine_id'
+    }, {
         'save': {
             method: 'POST',
             params: {
@@ -74,8 +92,14 @@ angular.module('starter.services', ['ngResource'])
     });
 })
 
-.factory('Medicine', function($resource) {
-    return $resource('http://localhost:3000/api/v1/users/:user_id/treatments/:treatment_id/doses/:dose_id/medicines/:medicine_id/administration_routes/:administration_route_id', {}, {
+.factory('AdministrationRoute', function($resource) {
+    return $resource('http://localhost:3000/api/v1/users/:user_id/treatments/:treatment_id/doses/:dose_id/medicines/:medicine_id/administration_routes/:administration_route_id', {
+        user_id: '@user_id',
+        treatment_id: '@treatment_id',
+        dose_id: '@dose_id',
+        medicine_id: '@medicine_id',
+        administration_route_id: '@administration_route_id'
+    }, {
         'save': {
             method: 'POST',
             params: {
@@ -87,59 +111,12 @@ angular.module('starter.services', ['ngResource'])
     });
 })
 
-.factory('TokenHandler', function() {
-    var tokenHandler = {};
-    var token = "none";
-
-    tokenHandler.set = function(newToken) {
-        token = newToken;
-    };
-
-    tokenHandler.get = function() {
-        return token;
-    };
-
-    // wraps given actions of a resource to send auth token
-    // with every request
-    tokenHandler.wrapActions = function(resource, actions) {
-        // copy original resource
-        var wrappedResource = resource;
-        // loop through actions and actually wrap them
-        for (var i = 0; i < actions.length; i++) {
-            tokenWrapper(wrappedResource, actions[i]);
-        };
-        // return modified copy of resource
-        return wrappedResource;
-    };
-
-    // wraps resource action to send request with auth token
-    var tokenWrapper = function(resource, action) {
-        // copy original action
-        resource['_' + action] = resource[action];
-        // create new action wrapping the original
-        // and sending token
-        resource[action] = function(data, success, error) {
-            return resource['_' + action](
-                // call action with provided data and
-                // appended access_token
-                angular.extend({}, data || {}, {
-                    access_token: tokenHandler.get()
-                }),
-                success,
-                error
-            );
-        };
-    };
-
-    return tokenHandler;
-})
-
 .factory('authInterceptor', function($q, $window) {
     return {
         request: function(config) {
             config.headers = config.headers || {};
-            if ($window.localStorage['ApiToken']) {
-                config.headers.Authorization = 'Token token=' + $window.localStorage['ApiToken'];
+            if ($window.localStorage.ApiToken) {
+                config.headers.Authorization = 'Token token=' + $window.localStorage.ApiToken;
             }
             return config;
         },
@@ -154,4 +131,46 @@ angular.module('starter.services', ['ngResource'])
 
 .config(function($httpProvider) {
     $httpProvider.interceptors.push('authInterceptor');
-});
+})
+
+.service('Session', function() {
+    var user = '';
+    var isLogged = false;
+
+    return {
+        getUser: function() {
+            return user;
+        },
+        login: function(value) {
+            user = value;
+            isLogged = true;
+        },
+        logout: function() {
+            isLogged = false;
+            user = '';
+        },
+        isActive: function() {
+            return isLogged;
+        }
+    };
+})
+
+.factory('Camera', ['$q',
+    function($q) {
+
+        return {
+            getPicture: function(options) {
+                var q = $q.defer();
+
+                navigator.camera.getPicture(function(result) {
+                    // Do any magic you need
+                    q.resolve(result);
+                }, function(err) {
+                    q.reject(err);
+                }, options);
+
+                return q.promise;
+            }
+        };
+    }
+]);

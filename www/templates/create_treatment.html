@@ -1,64 +1,88 @@
-<ion-view title="New Treatment">
-    <ion-content padding="true" class="has-header">
-        <form>
-            <div class="list">
+<ion-view title='New Treatment'>
+    <ion-content padding='true' class='has-header'>
+        <form class="list" name="treatmentForm" ng-submit="createTreatment(treatmentForm)" novalidate="">
 
-                <a class="button button-icon-left button-full button-clear button-dark">
-                    <i class="icon ion-thermometer"></i>
-                    Treatment Info
-                </a>
+            <a class='button button-icon-left button-full button-clear button-dark'>
+                <i class='icon ion-thermometer'></i>
+                Treatment Info
+            </a>
 
-                <label class="item item-input" name="treatment_start">
-                    <span class="input-label">Start Date</span>
-                    <input type="date" name="treatment_start_date">
-                </label>
-
-                <label class="item item-input" name="treatment_end">
-                    <span class="input-label">End Date</span>
-                    <input type="date" name="treatment_end_date">
-                </label>
-
-                <label class="item item-input" name="treatment_description">
-                    <span class="input-label">Description</span><textarea placeholder=""> </textarea>
-                </label>
-
-                <a class="button button-icon-left button-full button-clear button-dark">
-                    <i class="icon ion-beaker"></i>
-                    Medicine Info
-                </a>
-
-                <label class="item item-input" name="medicine_name">
-                    <span class="input-label">Name</span>
-                    <input type="text" placeholder="Medicine Name">
-                </label>
-
-                <label class="item item-input item-select" name="administration_route">
-                    <div class="input-label">Route of Administration</div>
-                    <select name="medicine_administration_route">
-                        <option selected value="oral">Oral</option>
-                        <option value="topical">Topical</option>
-                        <option value="inhalation">Inhalation</option>
-                        <option value="injection">Injection</option>
-                    </select>
-                </label>
-
-            <label class="item item-input" name="medicine_quantity">
-                <span class="input-label">Quantity</span>
-                <input type="number" placeholder="...">
+            <label class='item item-input' ng-class="{ 'has-error-lr' : treatmentForm.treatment_start.$invalid, 'valid-lr' : treatmentForm.treatment_start.$valid}">
+                <span class='input-label'>Start Date</span>
+                <input type='date' name='treatment_start' ng-model='treatment.start_date' required>
             </label>
 
-            <label class="item item-input" name="medicine_frequency">
-                <span class="input-label">Every (hours)</span>
-                <input type="text" placeholder="...">
+            <div class="form-errors" ng-show="treatmentForm.treatment_start.$error && treatmentForm.$submitted" ng-messages="treatmentForm.treatment_start.$error" ng-messages-include="templates/form_errors.html"></div>
+
+            <label class='item item-input' ng-class="{ 'has-error-lr' : treatmentForm.treatment_end.$invalid, 'valid-lr' : treatmentForm.treatment_end.$valid}">
+                <span class='input-label'>End Date</span>
+                <input type='date' name='treatment_end' ng-model='treatment.end_date' required>
             </label>
 
-            <label class="item item-input" name="medicine_expiration">
-                <span class="input-label">Expiration Date</span>
-                <input type="date" placeholder="">
+            <div class="form-errors" ng-show="treatmentForm.treatment_end.$error && treatmentForm.$submitted" ng-messages="treatmentForm.treatment_end.$error" ng-messages-include="templates/form_errors.html"></div>
+
+            <label class='item item-input' ng-class="{ 'has-error-lr' : treatmentForm.treatment_description.$invalid, 'valid-lr' : treatmentForm.treatment_description.$valid}">
+                <span class='input-label'>Description</span><textarea placeholder='' ng-model='treatment.description' name="treatment_description"></textarea>
             </label>
-            
-        </div>
-        <button class="button button-stable button-block">Add Treatment</button>
+
+            <a class='button button-icon-left button-full button-clear button-dark'>
+                <i class='icon ion-beaker'></i>
+                Medicine Info
+            </a>
+
+            <label class='item item-input' ng-class="{ 'has-error-lr' : treatmentForm.medicine_name.$invalid, 'valid-lr' : treatmentForm.medicine_name.$valid}">
+                <span class='input-label'>Name</span>
+                <input type='text' name='medicine_name' placeholder='Medicine Name' ng-model="treatment.medicine.name" required>
+            </label>
+
+            <div class="form-errors" ng-show="treatmentForm.medicine_name.$error && treatmentForm.$submitted" ng-messages="treatmentForm.medicine_name.$error" ng-messages-include="templates/form_errors.html"></div>
+
+            <label class='item item-input item-select' ng-class="{ 'has-error-lr' : treatmentForm.route_of_administration.$invalid, 'valid-lr' : treatmentForm.route_of_administration.$valid}">
+                <div class='input-label'>Route of Administration</div>
+                <select name='route_of_administration' ng-model='treatment.medicine.route_of_administration' required>
+                    <option selected value='oral'>Oral</option>
+                    <option value='topical'>Topical</option>
+                    <option value='inhalation'>Inhalation</option>
+                    <option value='injection'>Injection</option>
+                </select>
+            </label>
+
+            <label class='item item-input item-select' ng-class="{ 'has-error-lr' : treatmentForm.measurement_unit.$invalid, 'valid-lr' : treatmentForm.measurement_unit.$valid}">
+                <div class='input-label'>Measurement Unit</div>
+                <select name='measurement_unit' ng-model='treatment.medicine.measurement_unit' required>
+                    <option selected value='mcg'>Micrograms (mcg)</option>
+                    <option value='mg'>Milligram (mg)</option>
+                    <option value='g'>Gram (g)</option>
+                    <option value='mL'>Mililiter (mL)</option>
+                </select>
+            </label>
+
+            <label class='item item-input' ng-class="{ 'has-error-lr' : treatmentForm.medicine_quantity.$invalid, 'valid-lr' : treatmentForm.medicine_quantity.$valid}">
+                <span class='input-label'>Quantity</span>
+                <input type='number' name='medicine_quantity' placeholder="Quantity" ng-model="treatment.medicine.quantity" required ng-min="0">
+            </label>
+
+            <div class="form-errors" ng-show="treatmentForm.medicine_quantity.$error && treatmentForm.$submitted" ng-messages="treatmentForm.medicine_quantity.$error" ng-messages-include="templates/form_errors.html"></div>
+
+            <label class='item item-input' ng-class="{ 'has-error-lr' : treatmentForm.medicine_frequency.$invalid, 'valid-lr' : treatmentForm.medicine_frequency.$valid}">
+                <span class='input-label'>Every (hours)</span>
+                <input type='number' name='medicine_frequency' placeholder='Frequency' ng-model="treatment.medicine.frequency" required ng-min="0">
+            </label>
+
+            <div class="form-errors" ng-show="treatmentForm.medicine_frequency.$error && treatmentForm.$submitted" ng-messages="treatmentForm.medicine_frequency.$error" ng-messages-include="templates/form_errors.html"></div>
+
+            <label class='item item-input' ng-class="{ 'has-error-lr' : treatmentForm.medicine_expiration.$invalid, 'valid-lr' : treatmentForm.medicine_expiration.$valid}">
+                <span class='input-label'>Expiration Date</span>
+                <input type='date' name="medicine_expiration" placeholder='' ng-model="treatment.medicine.expiration_date" required>
+            </label>
+
+            <div class="form-errors" ng-show="treatmentForm.medicine_expiration.$error && treatmentForm.$submitted" ng-messages="treatmentForm.medicine_expiration.$error" ng-messages-include="templates/form_errors.html"></div>
+
+            <button ng-click="getPhoto()" class="button button-block button-primary">Take Photo</button>
+            <img ng-src="{{lastPhoto}}" style="max-width: 100%">
+                
+            <button class='button button-stable button-block' ng-click="createTreatment(treatment)">Add Treatment</button>
+
         </form>
     </ion-content>
 </ion-view>
