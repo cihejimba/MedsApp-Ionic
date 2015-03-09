@@ -44,24 +44,22 @@ angular.module('starter.controllers', ['starter.services'])
         expiration_date: ''
     };
 
-    var options = {
-        quality: 80,
-        targetWidth: 320,
-        targetHeight: 320,
-        // destinationType: Camera.DestinationType.DATA_URL,
-        // sourceType: Camera.PictureSourceType.CAMERA,
-        saveToPhotoAlbum: false
-    };
-
     $scope.getPhoto = function() {
         console.log('Getting Camera');
-        Camera.getPicture(options).then(function(imageData) {
+        Camera.getPicture().then(function(imageData) {
             // picture taken successfully
             console.log(imageData);
             $scope.lastPhoto = "data:image/jpeg;base64," + imageData;
         }, function(err) {
             // failure an error occurred taking the picture
             console.err(err);
+        }, {
+            quality: 80,
+            targetWidth: 320,
+            targetHeight: 320,
+            // destinationType: Camera.DestinationType.DATA_URL,
+            // sourceType: Camera.PictureSourceType.CAMERA,
+            saveToPhotoAlbum: false
         });
     };
 

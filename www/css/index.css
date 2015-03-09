@@ -44,15 +44,3 @@ label.item.valid-lr
     padding: 2px 0 2px 16px;
     color: red;
 }
-
-.center
-{
-    display: table-caption;
-    margin: 0 auto;
-}
-
-.sup {
-	position: relative;
-	bottom: 1ex; 
-	font-size: 80%;
-}
