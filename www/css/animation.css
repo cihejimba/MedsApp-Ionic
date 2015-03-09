@@ -1,0 +1,11 @@
+
+[class*="slide-animate"].ng-leave {
+  -webkit-transition: 1s;
+  transition: 1s;
+  
+  margin-left: 0;
+}
+
+[class*="slide-animate"].ng-leave-active {
+  margin-left: 100%;
+}

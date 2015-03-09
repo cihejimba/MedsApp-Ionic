@@ -49,7 +49,7 @@ angular.module('starter.controllers', ['starter.services'])
         Camera.getPicture().then(function(imageData) {
             // picture taken successfully
             console.log(imageData);
-            $scope.lastPhoto = "data:image/jpeg;base64," + imageData;
+            $scope.lastPhoto = /*"data:image/jpeg;base64," + */ imageData;
         }, function(err) {
             // failure an error occurred taking the picture
             console.err(err);
@@ -175,7 +175,7 @@ angular.module('starter.controllers', ['starter.services'])
     };
 })
 
-.controller('treatmentsCtrl', function($scope, $state, $ionicLoading, $ionicPopover, $ionicModal, $http, $window, Session, User) {
+.controller('treatmentsCtrl', function($scope, $state, $ionicLoading, $ionicPopover, $ionicPopup, $ionicModal, $http, $window, Session, User, Treatment) {
 
     // Popover from treatments template control and configuration
     $ionicPopover.fromTemplateUrl('templates/treatment_more_popover.html', {
@@ -209,6 +209,7 @@ angular.module('starter.controllers', ['starter.services'])
     $scope.closePopoverOptions = function() {
         $scope.optionsPopover.hide();
     };
+
     //Cleanup the popover when we're done with it!
     $scope.$on('$destroy', function() {
         $scope.optionsPopover.remove();
@@ -232,6 +233,29 @@ angular.module('starter.controllers', ['starter.services'])
         Session.logout();
         // go to login page
         $state.go('login');
+    };
+
+    $scope.deleteTreatment = function() {
+        var treatmentR = Treatment.remove({
+            user_id: Session.getUser().id,
+            treatment_id: $scope.treatment.id,
+        });
+
+        treatmentR.$promise.then(function(argument) {
+            // body...
+            $ionicPopup.alert({
+                title: "Success!",
+                template: "Treatment removed successfully",
+                cssClass: 'balanced'
+            });
+
+            $scope.user.treatments = $scope.user.treatments.filter(function(index) {
+                return index.id != $scope.treatment.id;
+            });
+
+        }, function(argument) {
+            // body...
+        });
     };
 })
 

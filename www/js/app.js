@@ -9,7 +9,7 @@ if ( annoyingDialog ) annoyingDialog.outerHTML = "";
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'angularMoment', 'ngMessages', 'starter.controllers'])
+angular.module('app', ['ionic', 'angularMoment', 'ngMessages', 'ngAnimate', 'starter.controllers'])
 
 .run(function($ionicPlatform, $rootScope, $http) {
 
